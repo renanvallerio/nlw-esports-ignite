@@ -21,9 +21,10 @@ function App() {
 
   useEffect(() => {
     fetch('http://localhost:3333/games')
-      .then(response => response.json())
+      .then(response => response.json()
+      )
       .then(data => {
-        setGames(data)
+        setGames(data[0])
       })
   }, [])
 
@@ -36,16 +37,16 @@ function App() {
       </h1>
 
       <div className="grid grid-cols-6 gap-6 mt-16">
-        {games.map(game => {
+        {games.length && games.map(game => {
           return (
             <GameBanner 
+              key={game.id}
               title={game.title} 
               bannerUrl={game.bannerUrl} 
               adsCount={game._count.ads}
             />
           )
         })}
-
       </div>
 
       <CreateAdBanner />
